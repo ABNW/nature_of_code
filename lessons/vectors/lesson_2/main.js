@@ -52,6 +52,7 @@ function setup(){
   var Ball = {
 
     //Initialise location and velocity vectors
+    //NOTE: createVector is baked into p5
     location: createVector(width/2, height/2),
     velocity: createVector(2.5,-2),
 
@@ -62,7 +63,7 @@ function setup(){
       this.location.add(this.velocity);
     },
 
-    //CHECK ARENT GOING OFF CANVAS, IF WE ARE INVERSE VELOCITY
+    //CHECK WE ARENT GOING OFF CANVAS, IF WE ARE INVERSE VELOCITY
     bounce: function(){
       if ((this.location.x > width) || this.location.x < 0){
         this.velocity.x = this.velocity.x *-1;
