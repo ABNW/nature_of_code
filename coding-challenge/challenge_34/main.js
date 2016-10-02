@@ -7,7 +7,7 @@ function setup(){
   createCanvas(640, 480);
 
   tree[0] = new Walker(width/2, height/2, true);
-  for(var i = 0; i < 100; i++){
+  for(var i = 0; i < 200; i++){
     walkers[i] = new Walker();
   }
 }
@@ -24,11 +24,23 @@ function draw(){
   }
 
   for(var i = 0; i < walkers.length; i++){
-    walkers[i].walk();
     walkers[i].show();
-    if(walkers[i].checkStuck(tree)){
-      tree.push(walkers[i]);
-      walkers.splice(i, 1);
+  }
+  for(var n = 0; n < 200; n++){
+    for(var i = 0; i < walkers.length; i++){
+      walkers[i].walk();
+      //walkers[i].show();
+      if(walkers[i].checkStuck(tree)){
+        tree.push(walkers[i]);
+        walkers.splice(i, 1);
+      }
     }
   }
+
+}
+
+function distSq(a,b){
+ var dx = b.x - a.x;
+ var dy = b.y - a.y;
+ return dx * dx + dy * dy;
 }
