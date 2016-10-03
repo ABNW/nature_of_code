@@ -1,5 +1,13 @@
 function Walker(x, y, stuck){
-  this.pos = createVector(x || random(width), y || random(height));
+
+  if(x && y){
+    this.pos = createVector(x,y);
+  } else{
+    this.pos = randomPoint();
+  }
+
+  this.r = 7;
+
   this.stuck = stuck;
 
   this.walk = function(){
@@ -13,7 +21,7 @@ function Walker(x, y, stuck){
     // while(!stuck){
       for(var i = 0; i < others.length; i++){
         var d = distSq(this.pos, others[i].pos);
-        if (d < r * r * 4){
+        if (d < this.r * others[i].r * 4){
           this.stuck = true;
           return true;
           break;
@@ -21,6 +29,23 @@ function Walker(x, y, stuck){
       }
       return false;
     // }
+  }
+
+  function randomPoint(){
+    var i = floor(random(4));
+    if (i === 0){
+      var x = random(width);
+      return createVector(x, 0);
+    } else if(i === 1){
+      var x = random(width);
+      return createVector(x, height);
+    } else if(i === 2){
+      var y = random(height);
+      return createVector(0, y);
+    } else{
+      var y = random(height);
+      return createVector(width, y);
+    }
   }
 
   this.show = function(){
@@ -32,6 +57,6 @@ function Walker(x, y, stuck){
     } else {
       fill(255)
     }
-    ellipse(this.pos.x, this.pos.y, r*2, r*2);
+    ellipse(this.pos.x, this.pos.y, this.r*2, this.r*2);
   }
 }
